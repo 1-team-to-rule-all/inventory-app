@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Item } = require("../models");
+const { Item } = require("../models/Item");
 
 // get /items returns all item instances
 router.get("/", async (req, res, next) => {
@@ -24,6 +24,23 @@ router.get("/:itemId", async (req, res, next) => {
     }
   } catch (e) {
     next(e);
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { name, description, price, category, image } = req.body;
+
+  try {
+    const newItem = await Item.create({
+      name,
+      description,
+      price,
+      category,
+      image,
+    });
+    res.status(201).json(newItem);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create item" });
   }
 });
 //Update route

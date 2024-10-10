@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
-import Items from './Items';
-import ItemsList from './ItemsList';
-import apiURL from '../api';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+  Link,
+} from "react-router-dom";
+import Items from "./Items";
+import ItemsList from "./ItemsList";
+import apiURL from "../api";
+import AddItem from "./AddItem";
 
 const App = () => {
   const [singleItem, setSingleItem] = useState(null);
@@ -19,7 +26,7 @@ const App = () => {
           const data = await response.json();
           setItemList(data);
         } else {
-          throw new Error('Failed to load items');
+          throw new Error("Failed to load items");
         }
       } catch (err) {
         setError(err.message);
@@ -31,17 +38,33 @@ const App = () => {
     fetchItems();
   }, []);
 
+  const handleAddItem = async (newItem) => {
+    setItemList([newItem, ...itemList]);
+  };
+
   if (loading) return <div>Loading items...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <>
       <Router>
+        <header>
+          {" "}
+          <Link to="/add-item">
+            {" "}
+            <button> Add New Item </button>
+          </Link>
+        </header>
+        {/* <header> <button onClick={() => navigate('add-item')}>Add New Item</button> </header> */}
         <Routes>
           {/* Pass the item list to ItemsList */}
           <Route exact path="/" element={<ItemsList items={itemList} />} />
           {/* Use SingleItemWrapper to fetch and display single item */}
           <Route path="/items/:id" element={<SingleItemWrapper />} />
+          <Route
+            path="/add-item"
+            element={<AddItem addOnItem={handleAddItem} />}
+          />
         </Routes>
       </Router>
     </>
@@ -64,7 +87,7 @@ const SingleItemWrapper = () => {
           const data = await response.json();
           setSingleItem(data);
         } else {
-          throw new Error('Item not found');
+          throw new Error("Item not found");
         }
       } catch (err) {
         setError(err.message);
