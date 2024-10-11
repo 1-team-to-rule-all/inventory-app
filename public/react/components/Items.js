@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import apiURL from "../api";
 // import addItem from './addItem'; // was going to try to refactor this component to be reusable but decided against it
 
@@ -68,8 +68,8 @@ const Items = ({ item }) => {
         <h2>{formInput.name}</h2>
         <img src={formInput.image} alt={formInput.name} />
         <p>{formInput.description}</p>
-        <p>Price: ${formInput.price}</p>
-        <p>Category: {formInput.category}</p>
+        <p className="price">Price: ${formInput.price}</p>
+        <p className="category">Category: {formInput.category}</p>
         <button onClick={handleUpdate}>Edit</button>
         <button onClick={deleteItem}>Delete</button>
         <Link to="/"><button>Back to Item List</button></Link>
@@ -77,43 +77,59 @@ const Items = ({ item }) => {
     );
   } else if (update) {
     return (
-      <>
-        <form onSubmit={updateItem}>
+      <div className="update-item-container">
+        <form onSubmit={updateItem} className="update-form">
           <div>Edit Item</div>
+          <label className="form-label">
+            Name:
           <input
             name="name"
             type="text"
             value={formInput.name}
             placeholder={formInput.name}
             onChange={handleChange}
-          />
+            className="form-input"
+          /></label>
+          <label className="form-label">
+            Description:
           <input
             name="description"
             type="text"
             value={formInput.description}
             onChange={handleChange}
-          />
+            className="form-input"
+          /></label>
+          <label className="form-label">
+            Price:
           <input
             name="price"
             type="text"
             value={formInput.price}
             onChange={handleChange}
-          />
+            className="form-input"
+          /></label>
+          <label className="form-label">
+            Category:
           <input
             name="category"
             type="text"
             value={formInput.category}
             onChange={handleChange}
-          />
+            className="form-input"
+          /></label>
+          <label className="form-label">
+            Image Url:
           <input
             name="image"
             type="url"
             value={formInput.image}
             onChange={handleChange}
-          />
-          <button type="submit">Submit Changes</button>
+            className="form-input"
+          /></label>
+          <button type="submit" className="form-button">Submit Changes</button>
         </form>
-      </>
+        <Link to="/"><button className="back-button">Back to Item List</button></Link>
+      </div>
     );
   }
 };
