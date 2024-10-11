@@ -58,7 +58,7 @@ Additional Libraries:
 
 ### Source code
 
-github repo:
+github repo: https://github.com/1-team-to-rule-all/inventory
 
 ### How to run this app
 
@@ -70,7 +70,8 @@ github repo:
 ### URL Link for app
 https://jbls-inventory-app.onrender.com
 
-### Main page image
+### Main page image  
+![Screenshot 2024-10-11 124623](https://github.com/user-attachments/assets/49235a76-8e2d-41a5-a9ca-7b8bb72b246d)
 
 ### Contributors
 
